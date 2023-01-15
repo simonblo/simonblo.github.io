@@ -9,6 +9,15 @@ body
 	padding-bottom: 50px;
 }
 
+.main-frame
+{
+	display: block;
+	width: 800px;
+	height: auto;
+	margin-left: auto;
+	margin-right: auto;
+}
+
 .header
 {
 	text-align: left;
@@ -111,3 +120,41 @@ body
 	border-radius: 8px;
 	object-fit: cover;
 }
+
+.image-list
+{
+	display: grid;
+	width: 100%;
+	grid-auto-rows: 1fr;
+	grid-auto-columns: 1fr;
+	grid-auto-flow: column;
+	grid-row-gap: 4px;
+	grid-column-gap: 4px;
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+
+.image-list a
+{
+	width: 100%;
+	border-radius: 8px;
+	overflow: hidden;
+}
+
+.image-list a img
+{
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	object-position: center;
+}
+
+.image-list-ratio-1-1 a { aspect-ratio: 1 / 1; }
+.image-list-ratio-2-1 a { aspect-ratio: 2 / 1; }
+.image-list-ratio-2-3 a { aspect-ratio: 2 / 3; }
+.image-list-ratio-3-2 a { aspect-ratio: 3 / 2; }
+.image-list-ratio-4-1 a { aspect-ratio: 4 / 1; }
+.image-list-ratio-5-1 a { aspect-ratio: 5 / 1; }
+.image-list-ratio-5-2 a { aspect-ratio: 5 / 2; }
+.image-list-ratio-5-4 a { aspect-ratio: 5 / 4; }
+.image-list-ratio-7-5 a { aspect-ratio: 7 / 5; }
