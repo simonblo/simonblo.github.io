@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+
+<html>
+	<head>
+		<link rel="stylesheet" href="main.css">
+	</head>
+	<body>
+		<div class="main-frame">
+			<div class="navigation">
+				<a href="index.html">Home</a>
+				<a href="">About</a>
+				<a href="">Contact</a>
+			</div>
+			<div class="textbox">
+				Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+				tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+				quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+				consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+				cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+				proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+			</div>
+			<div class="image-layout">
+				<a href="images/06-01.png" style="grid-area: 1 / 1 / 7 / 13;"><img src="images/06-01.png"></a>
+			</div>
+			<div class="textbox">
+				Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+				tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+				quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+				consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+				cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+				proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+			</div>
+			<div class="image-layout">
+				<a href="images/06-02.png" style="grid-area: 1 / 1 /  6 / 13;"><img src="images/06-02.png"></a>
+				<a href="images/06-03.png" style="grid-area: 6 / 1 / 11 / 13;"><img src="images/06-03.png"></a>
+			</div>
+			<div class="textbox">
+				The heightmap can now be used to compute parameters that can be used for the
+				procedural shading. The parameters that I compute is the slope of the surface point
+				and the wind exposure of the surface point. If the slope of the surface area is
+				high enough the snow should transition over to rock. If the normal is aligned a lot
+				to the wind direction the snow should also transition over to rock. This is
+				represented by to masks that controls where the snow texture and rock texture
+				should be used and how they should be mixed:
+			</div>
+			<div class="image-layout">
+				<a href="images/06-04.png" style="grid-area: 1 / 1 / 7 /  7;"><img src="images/06-04.png"></a>
+				<a href="images/06-05.png" style="grid-area: 1 / 7 / 7 / 13;"><img src="images/06-05.png"></a>
+			</div>
+			<div class="textbox">
+				Then I combine those two texture masks into a single mask and I also compute the
+				combined illumination based on ambient light, diffuse light and specular light as
+				shown in the output images below:
+			</div>
+			<div class="image-layout">
+				<a href="images/06-06.png" style="grid-area: 1 / 1 / 7 /  7;"><img src="images/06-06.png"></a>
+				<a href="images/06-07.png" style="grid-area: 1 / 7 / 7 / 13;"><img src="images/06-07.png"></a>
+			</div>
+			<div class="textbox">
+				I then use the computed values to determine the final color of each pixel:
+			</div>
+			<div class="image-layout">
+				<a href="images/06-08.png" style="grid-area: 1 / 1 /  6 / 13;"><img src="images/06-08.png"></a>
+				<a href="images/06-09.png" style="grid-area: 6 / 1 / 11 / 13;"><img src="images/06-09.png"></a>
+			</div>
+			<div class="textbox">
+				I also rendered a short video demo of the final result:
+			</div>
+			<div class="video-layout">
+				<iframe src="https://www.youtube.com/embed/zLZyJyYI-mY?rel=0" allowfullscreen></iframe>
+			</div>
+		</div>
+	</body>
+</html>
