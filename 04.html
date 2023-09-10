@@ -12,139 +12,137 @@
 				<a href="contact.html">Contact</a>
 			</div>
 			<div class="textbox">
-				In this project I wanted to combine the power of rasterization and ray tracing.
-				Rasterization is able to produce the same result as the primary rays in ray tracing
-				but for a much lower rendering cost. Ray tracing can then be used for the secondary
-				rays in order to obtain proper shadows and reflections.
-			</div>
-			<div class="textbox">
-				The model and textures that I use in this project is not my own work but rather
-				extracted resources from the game World of Tanks. The model consists of separate
-				meshes for the chassis, hull, turret and gun. In total the model consists of
-				roughly 63000 triangles. This is too many triangles to just perform an intersection
-				test on all of them so an acceleration structure is needed.
-			</div>
-			<div class="textbox">
-				The acceleration structure is built at application startup. At the moment it only
-				builds a bottom level acceleration structure but this can quite easily be extended
-				into also building a top level acceleration structure. In short, the algorithm
-				builds a bounding volume hierarchy based on the classical surface area heuristic
-				and keeps dividing nodes until there is only one triangle remaining.
-			</div>
-			<div class="textbox">
-				I have implemented three different functions for the splitting of node which
-				represents three different splitting strategies and each function can split on each
-				of the three axes. The surface area heuristic is evaluated for all nine cases and
-				then the best option is used. An example of the output is shown below with tree
-				depths of 0, 4 and 8:
-			</div>
-			<div class="textbox">
-				Debug output of the build acceleration structure function visualized in Maya:
+				Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+				tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+				quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+				consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+				cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+				proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
 			</div>
 			<div class="image-layout">
-				<a href="images/04-01.png" style="grid-area: 1 / 1 / 5 /  4;"><img src="images/04-01.png"></a>
-				<a href="images/04-02.png" style="grid-area: 1 / 4 / 3 / 13;"><img src="images/04-02.png"></a>
-				<a href="images/04-03.png" style="grid-area: 3 / 4 / 5 / 13;"><img src="images/04-03.png"></a>
+				<a href="images/04-01.png" style="grid-area: 1 / 1 / 5 /  7;"><img src="images/04-01.png"></a>
+				<a href="images/04-02.png" style="grid-area: 5 / 1 / 9 /  7;"><img src="images/04-02.png"></a>
+				<a href="images/04-03.png" style="grid-area: 1 / 9 / 5 / 13;"><img src="images/04-03.png"></a>
+				<a href="images/04-04.png" style="grid-area: 1 / 7 / 9 /  9;"><img src="images/04-04.png"></a>
+				<a href="images/04-05.png" style="grid-area: 5 / 9 / 9 / 13;"><img src="images/04-05.png"></a>
 			</div>
 			<div class="textbox">
-				In the model the tracks are modeled as an individual thread segment which can
-				then combined dynamically in the application. To simplify things a bit I decided to
-				instead combine the segments in Maya and use a static mesh for my project. To do
-				this I used Curves and MASH in Maya to produce the full track:
+				Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+				tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+				quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+				consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+				cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+				proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
 			</div>
 			<div class="image-layout">
-				<a href="images/04-04.png" style="grid-area: 1 / 1 / 5 /  5;"><img src="images/04-04.png"></a>
-				<a href="images/04-05.png" style="grid-area: 1 / 5 / 5 /  9;"><img src="images/04-05.png"></a>
-				<a href="images/04-06.png" style="grid-area: 1 / 9 / 5 / 13;"><img src="images/04-06.png"></a>
+				<a href="images/04-06.png" style="grid-area: 1 /  1 / 7 / 11;"><img src="images/04-06.png"></a>
+				<a href="images/04-07.png" style="grid-area: 1 / 11 / 4 / 13;"><img src="images/04-07.png"></a>
+				<a href="images/04-08.png" style="grid-area: 4 / 11 / 7 / 13;"><img src="images/04-08.png"></a>
 			</div>
 			<div class="textbox">
-				Now it's time for the actual rendering. The first step in the rendering of a frame
-				is to use rasterization as an optimized approach of computing the primary rays.
-				Instead of using a classical geometry buffer I instead only store index values,
-				barycentric coordinates and the pixel depth. While requiring a little bit more
-				computation to obtain properties such as the surface color or normal it consumes
-				less memory and allows all available surface properties to be computed. Below is an
-				example of the geometry buffer with the first texture containing the mesh index in
-				the red channel and the triangle index in the green channel, the second texture
-				containing the barycentric u coordinate in the red channel and the barycentric v
-				coordinate in the green channel, and the third texture containing the pixel depth:
+				Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+				tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+				quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+				consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+				cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+				proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
 			</div>
 			<div class="image-layout">
-				<a href="images/04-07.png" style="grid-area: 1 / 1 / 5 /  5;"><img src="images/04-07.png"></a>
-				<a href="images/04-08.png" style="grid-area: 1 / 5 / 5 /  9;"><img src="images/04-08.png"></a>
-				<a href="images/04-09.png" style="grid-area: 1 / 9 / 5 / 13;"><img src="images/04-09.png"></a>
+				<a href="images/04-09.gif" style="grid-area: 1 / 1 / 4 /  7;"><img src="images/04-09.gif"></a>
+				<a href="images/04-10.gif" style="grid-area: 1 / 7 / 4 / 13;"><img src="images/04-10.gif"></a>
 			</div>
 			<div class="textbox">
-				In short, the index values are used to determine which mesh and triangle that a
-				pixel represents. The mesh is needed for things such as the world transform matrix
-				while the triangle is needed for things such as texture coordinates. The
-				barycentric coordinates are used for the interpolation of vertex values within a
-				specific pixel. The pixel depth is used to determine if a pixel represents a hit or
-				miss in terms of primary rays but it could also be used for other things such as
-				computing the intersection distance of the primary ray.
-			</div>
-			<div class="textbox">
-				With the information in the geometry buffer all pixels can be evaluated in terms of
-				any vertex property. Below is an example where I have used the geometry buffer to
-				obtain pixel values from the textures representing albedo color, ambient occlusion,
-				normals and material properties packed as glossiness in red channel and metallness
-				in green channel:
+				Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+				tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+				quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+				consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+				cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+				proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
 			</div>
 			<div class="image-layout">
-				<a href="images/04-10.png" style="grid-area: 1 /  1 / 4 /  4;"><img src="images/04-10.png"></a>
-				<a href="images/04-11.png" style="grid-area: 1 /  4 / 4 /  7;"><img src="images/04-11.png"></a>
-				<a href="images/04-12.png" style="grid-area: 1 /  7 / 4 / 10;"><img src="images/04-12.png"></a>
-				<a href="images/04-13.png" style="grid-area: 1 / 10 / 4 / 13;"><img src="images/04-13.png"></a>
+				<a href="images/04-11.png" style="grid-area: 1 / 1 / 5 /  5;"><img src="images/04-11.png"></a>
+				<a href="images/04-12.png" style="grid-area: 5 / 1 / 9 /  5;"><img src="images/04-12.png"></a>
+				<a href="images/04-13.png" style="grid-area: 1 / 5 / 9 / 13;"><img src="images/04-13.png"></a>
 			</div>
 			<div class="textbox">
-				After the rasterization it's time for a compute shader to execute the actual ray
-				tracing. It uses the geometry buffer to compute information such as the world hit
-				position of the primary rays in order to compute shadow rays and reflection rays.
-				These rays are then traced through the acceleration structure and then some
-				information about the hit is returned.
-			</div>
-			<div class="textbox">
-				Below is an example of the direct light evaluation for the hit position of the
-				primary rays:
+				Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+				tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+				quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+				consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+				cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+				proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
 			</div>
 			<div class="image-layout">
-				<a href="images/04-14.png" style="grid-area: 1 /  1 / 7 /  7;"><img src="images/04-14.png"></a>
-				<a href="images/04-15.png" style="grid-area: 1 /  7 / 4 / 10;"><img src="images/04-15.png"></a>
-				<a href="images/04-16.png" style="grid-area: 4 /  7 / 7 / 10;"><img src="images/04-16.png"></a>
-				<a href="images/04-17.png" style="grid-area: 1 / 10 / 7 / 13;"><img src="images/04-17.png"></a>
+				<a href="images/04-14.png" style="grid-area: 1 / 1 / 5 /  5;"><img src="images/04-14.png"></a>
+				<a href="images/04-15.png" style="grid-area: 1 / 5 / 5 /  9;"><img src="images/04-15.png"></a>
+				<a href="images/04-16.png" style="grid-area: 1 / 9 / 5 / 13;"><img src="images/04-16.png"></a>
 			</div>
 			<div class="textbox">
-				Below is an example of the reflection evaluation with pure reflection and no other
-				colors for the hit position of the primary rays:
+				Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+				tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+				quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+				consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+				cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+				proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
 			</div>
 			<div class="image-layout">
-				<a href="images/04-18.png" style="grid-area: 1 /  1 / 7 /  7;"><img src="images/04-18.png"></a>
-				<a href="images/04-19.png" style="grid-area: 1 /  7 / 4 / 10;"><img src="images/04-19.png"></a>
-				<a href="images/04-20.png" style="grid-area: 4 /  7 / 7 / 10;"><img src="images/04-20.png"></a>
-				<a href="images/04-21.png" style="grid-area: 1 / 10 / 7 / 13;"><img src="images/04-21.png"></a>
+				<a href="images/04-17.png" style="grid-area: 1 / 1 / 3 /  3;"><img src="images/04-17.png"></a>
+				<a href="images/04-18.png" style="grid-area: 3 / 1 / 5 /  3;"><img src="images/04-18.png"></a>
+				<a href="images/04-19.png" style="grid-area: 1 / 3 / 5 / 13;"><img src="images/04-19.png"></a>
 			</div>
 			<div class="textbox">
-				I use this compute shader to evaluate the pixel color in terms of ambient light,
-				direct light and reflected light. The ray bouncing mechanism is implemented as a
-				loop in the shader to support a variable amount of bounces. If a ray does not hit
-				anything or if the accumulated reflection values fall below a threshold the loop
-				is cancelled. Below are a few examples of the output with 4 bounces:
+				Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+				tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+				quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+				consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+				cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+				proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
 			</div>
 			<div class="image-layout">
-				<a href="images/04-22.png" style="grid-area: 1 /  1 / 7 /  7;"><img src="images/04-22.png"></a>
-				<a href="images/04-23.png" style="grid-area: 1 /  7 / 4 / 10;"><img src="images/04-23.png"></a>
-				<a href="images/04-24.png" style="grid-area: 4 /  7 / 7 / 10;"><img src="images/04-24.png"></a>
+				<a href="images/04-20.png" style="grid-area: 1 /  1 / 7 /  4;"><img src="images/04-20.png"></a>
+				<a href="images/04-21.png" style="grid-area: 1 /  4 / 7 / 10;"><img src="images/04-21.png"></a>
+				<a href="images/04-22.png" style="grid-area: 1 / 10 / 7 / 13;"><img src="images/04-22.png"></a>
+			</div>
+			<div class="textbox">
+				Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+				tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+				quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+				consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+				cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+				proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+			</div>
+			<div class="image-layout">
+				<a href="images/04-23.png" style="grid-area: 1 /  1 / 7 /  4;"><img src="images/04-23.png"></a>
+				<a href="images/04-24.png" style="grid-area: 1 /  4 / 7 / 10;"><img src="images/04-24.png"></a>
 				<a href="images/04-25.png" style="grid-area: 1 / 10 / 7 / 13;"><img src="images/04-25.png"></a>
 			</div>
 			<div class="textbox">
-				For a 1920x1200 resolution with x2 SSAA and 2 full bounces this runs in roughly 30
-				FPS on an NVIDIA GeForce RTX 2070.
+				Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+				tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+				quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+				consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+				cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+				proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+			</div>
+			<div class="image-layout">
+				<a href="images/04-26.png" style="grid-area: 1 /  1 / 7 /  4;"><img src="images/04-26.png"></a>
+				<a href="images/04-27.png" style="grid-area: 1 /  4 / 7 / 10;"><img src="images/04-27.png"></a>
+				<a href="images/04-28.png" style="grid-area: 1 / 10 / 7 / 13;"><img src="images/04-28.png"></a>
 			</div>
 			<div class="textbox">
-				I also rendered a short video demo of the final result:
+				Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+				tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+				quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+				consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+				cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+				proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
 			</div>
-			<div class="video-layout">
-				<iframe src="https://www.youtube.com/embed/DFCqJlhYQGo?rel=0" allowfullscreen></iframe>
+			<div class="image-layout">
+				<a href="images/04-29.png" style="grid-area: 1 /  1 / 7 /  7;"><img src="images/04-29.png"></a>
+				<a href="images/04-30.png" style="grid-area: 1 /  7 / 4 / 10;"><img src="images/04-30.png"></a>
+				<a href="images/04-31.png" style="grid-area: 1 / 10 / 4 / 13;"><img src="images/04-31.png"></a>
+				<a href="images/04-32.png" style="grid-area: 4 /  7 / 7 / 10;"><img src="images/04-32.png"></a>
+				<a href="images/04-33.png" style="grid-area: 4 / 10 / 7 / 13;"><img src="images/04-33.png"></a>
 			</div>
 		</div>
 	</body>
