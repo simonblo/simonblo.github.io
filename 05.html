@@ -12,70 +12,51 @@
 				<a href="contact.html">Contact</a>
 			</div>
 			<div class="textbox">
-				In this project I wanted to learn more about real-time ocean simulation. On top of
-				that I also wanted to learn the fast fourier transform and additionally practice on
-				reading and implementing a scientific reasearch paper. This project is primarily
-				based on this paper:
-			</div>
-			<div class="textbox">
-				<a href="https://people.computing.clemson.edu/~jtessen/reports/papers_files/coursenotes2004.pdf">
-					Simulating Ocean Water by Jerry Tessendorf
-				</a>
-			</div>
-			<div class="textbox">
-				The first step is to generate the texture with the initial random frequencies that
-				will be used to create the actual amplitudes for a given time value. I do this on
-				the CPU at application initialization and then store it in a texture that the GPU
-				can read from when computing the time based amplitudes for each frame. This
-				generated texture consists of four channels, the red and green channels represents
-				the real and imaginary part for the regular frequencies while the blue and alpha
-				channels represents the real and imaginary part for the conjugated frequencies:
+				Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+				tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+				quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+				consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+				cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+				proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
 			</div>
 			<div class="image-layout">
-				<a href="images/05-01.png" style="grid-area: 1 /  1 / 4 /  4;"><img src="images/05-01.png"></a>
-				<a href="images/05-02.png" style="grid-area: 1 /  4 / 4 /  7;"><img src="images/05-02.png"></a>
-				<a href="images/05-03.png" style="grid-area: 1 /  7 / 4 / 10;"><img src="images/05-03.png"></a>
-				<a href="images/05-04.png" style="grid-area: 1 / 10 / 4 / 13;"><img src="images/05-04.png"></a>
+				<a href="images/05-01.png" style="grid-area: 1 / 1 / 5 /  6;"><img src="images/05-01.png"></a>
+				<a href="images/05-02.png" style="grid-area: 1 / 6 / 5 /  9;"><img src="images/05-02.png"></a>
+				<a href="images/05-03.png" style="grid-area: 1 / 9 / 5 / 13;"><img src="images/05-03.png"></a>
 			</div>
 			<div class="textbox">
-				At the start of each frame I then use the four channels from the random frequencies
-				generated above to create time based frequencies. This is done in the frequency
-				domain before the fourier transform takes place so the textures look quite similar
-				to before. One difference is that the compute shader also reshuffles the four
-				quadrants of the frequency texture in accordance to how the fourier transform
-				expects frequencies to be ordered.
-			</div>
-			<div class="textbox">
-				Next up is to apply the fourier transform in order to transform the frequencies
-				from the frequency domain to the time domain. I implemented both a discrete fourier
-				transform and a fast fourier transform with compute shaders in order to compare the
-				difference in execution time and I present the results a bit further down. Here are
-				the resulting textures after the applied transform. The first texture represents
-				the hight, the second texture represents the horizontal displacement and the third
-				texture represents the slope:
+				Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+				tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+				quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+				consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+				cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+				proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
 			</div>
 			<div class="image-layout">
-				<a href="images/05-05.png" style="grid-area: 1 / 1 / 9 /  9;"><img src="images/05-05.png"></a>
+				<a href="images/05-04.png" style="grid-area: 1 / 1 / 5 /  5;"><img src="images/05-04.png"></a>
+				<a href="images/05-05.png" style="grid-area: 1 / 5 / 5 /  9;"><img src="images/05-05.png"></a>
 				<a href="images/05-06.png" style="grid-area: 1 / 9 / 5 / 13;"><img src="images/05-06.png"></a>
-				<a href="images/05-07.png" style="grid-area: 5 / 9 / 9 / 13;"><img src="images/05-07.png"></a>
 			</div>
 			<div class="textbox">
-				After the transformation step it's time to use the generated textures to render the
-				actual ocean surface. In the vertex shader I use both the height texture to offset
-				the vertex vertically and also the displacement texture to offset the vertex
-				horizontally:
+				Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+				tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+				quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+				consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+				cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+				proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
 			</div>
 			<div class="image-layout">
-				<a href="images/05-08.png" style="grid-area: 1 / 1 / 5 / 13;"><img src="images/05-08.png"></a>
-				<a href="images/05-09.png" style="grid-area: 5 / 1 / 9 / 13;"><img src="images/05-09.png"></a>
+				<a href="images/05-07.png" style="grid-area: 1 / 1 / 5 /  5;"><img src="images/05-07.png"></a>
+				<a href="images/05-08.png" style="grid-area: 1 / 5 / 5 /  9;"><img src="images/05-08.png"></a>
+				<a href="images/05-09.png" style="grid-area: 1 / 9 / 5 / 13;"><img src="images/05-09.png"></a>
 			</div>
 			<div class="textbox">
-				In the pixel shader I use both the height texture and the slope texture to compute
-				various light components. I use the slope to compute the surface normal which is
-				then used to determine the specular component as well as computing the reflection
-				direction to sample a color from the skybox. Additionally I use the height of the
-				surface to simulate the light scattering on wave peaks. Below I show the three
-				individual components of specular light, scattered light and reflected light:
+				Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+				tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+				quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+				consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+				cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+				proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
 			</div>
 			<div class="image-layout">
 				<a href="images/05-10.png" style="grid-area: 1 / 1 / 5 /  5;"><img src="images/05-10.png"></a>
@@ -83,25 +64,75 @@
 				<a href="images/05-12.png" style="grid-area: 1 / 9 / 5 / 13;"><img src="images/05-12.png"></a>
 			</div>
 			<div class="textbox">
-				I add some ambient light together with the components of specular light and
-				scattered light and then combine it with the base color of the ocean together with
-				the reflective component in order to produce the final result:
+				Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+				tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+				quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+				consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+				cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+				proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
 			</div>
 			<div class="image-layout">
-				<a href="images/05-13.png" style="grid-area: 1 / 1 / 5 / 13;"><img src="images/05-13.png"></a>
-				<a href="images/05-14.png" style="grid-area: 5 / 1 / 9 / 13;"><img src="images/05-14.png"></a>
+				<a href="images/05-13.png" style="grid-area: 1 / 1 / 6 / 13;"><img src="images/05-13.png"></a>
 			</div>
 			<div class="textbox">
-				For a 1920x1200 resolution with a fast fourier transform on a 2048x2048 grid and x4
-				SSAA this runs in roughly 65 FPS on an NVIDIA GeForce RTX 2070. As a comparison I
-				also implemented a discrete fourier transform which for the same settings runs in
-				roughly 5 FPS which is a massive difference. 
+				Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+				tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+				quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+				consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+				cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+				proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+			</div>
+			<div class="image-layout">
+				<a href="images/05-14.png" style="grid-area: 1 / 1 / 7 /  7;"><img src="images/05-14.png"></a>
+				<a href="images/05-15.png" style="grid-area: 1 / 7 / 7 / 13;"><img src="images/05-15.png"></a>
 			</div>
 			<div class="textbox">
-				I also rendered a short video demo of the final result:
+				Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+				tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+				quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+				consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+				cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+				proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
 			</div>
-			<div class="video-layout">
-				<iframe src="https://www.youtube.com/embed/V3lDVTRCZGA?rel=0" allowfullscreen></iframe>
+			<div class="image-layout">
+				<a href="images/05-16.png" style="grid-area: 1 / 1 / 7 /  7;"><img src="images/05-16.png"></a>
+				<a href="images/05-17.png" style="grid-area: 1 / 7 / 7 / 13;"><img src="images/05-17.png"></a>
+			</div>
+			<div class="textbox">
+				Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+				tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+				quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+				consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+				cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+				proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+			</div>
+			<div class="image-layout">
+				<a href="images/05-18.png" style="grid-area: 1 / 1 / 5 /  9;"><img src="images/05-18.png"></a>
+				<a href="images/05-19.png" style="grid-area: 1 / 9 / 5 / 13;"><img src="images/05-19.png"></a>
+			</div>
+			<div class="textbox">
+				Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+				tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+				quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+				consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+				cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+				proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+			</div>
+			<div class="image-layout">
+				<a href="images/05-20.png" style="grid-area: 1 / 1 / 7 /  7;"><img src="images/05-20.png"></a>
+				<a href="images/05-21.png" style="grid-area: 1 / 7 / 7 / 13;"><img src="images/05-21.png"></a>
+			</div>
+			<div class="textbox">
+				Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+				tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+				quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+				consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+				cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+				proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+			</div>
+			<div class="image-layout">
+				<a href="images/05-22.png" style="grid-area: 1 / 1 /  7 / 13;"><img src="images/05-22.png"></a>
+				<a href="images/05-23.png" style="grid-area: 7 / 1 / 13 / 13;"><img src="images/05-23.png"></a>
 			</div>
 		</div>
 	</body>
