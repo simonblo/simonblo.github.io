@@ -12,34 +12,19 @@
 				<a href="contact.html">Contact</a>
 			</div>
 			<div class="textbox">
-				In this project I wanted to combine the power of rasterization and ray tracing.
-				Rasterization is able to produce the same result as the primary rays in ray tracing
-				but for a much lower rendering cost. Ray tracing can then be used for the secondary
-				rays in order to obtain proper shadows and reflections.
+				In this project I wanted to learn more about real-time ray tracing. I wanted to
+				build an acceleration structure and implement the ray tracing on the GPU in order
+				to obtain real-time performance for a more complicated mesh. On top of that I also
+				wanted to explore the concept of combining rasterization and ray tracing.
 			</div>
 			<div class="textbox">
-				The model and textures that I use in this project is not my own work but rather
-				extracted resources from the game World of Tanks. The model consists of separate
-				meshes for the chassis, hull, turret and gun. In total the model consists of
-				roughly 63000 triangles. This is too many triangles to just perform an intersection
-				test on all of them so an acceleration structure is needed.
+				The meshes and textures that I use in this project are not my own work.
 			</div>
 			<div class="textbox">
-				The acceleration structure is built at application startup. At the moment it only
-				builds a bottom level acceleration structure but this can quite easily be extended
-				into also building a top level acceleration structure. In short, the algorithm
-				builds a bounding volume hierarchy based on the classical surface area heuristic
-				and keeps dividing nodes until there is only one triangle remaining.
-			</div>
-			<div class="textbox">
-				I have implemented three different functions for the splitting of node which
-				represents three different splitting strategies and each function can split on each
-				of the three axes. The surface area heuristic is evaluated for all nine cases and
-				then the best option is used. An example of the output is shown below with tree
-				depths of 0, 4 and 8:
-			</div>
-			<div class="textbox">
-				Debug output of the build acceleration structure function visualized in Maya:
+				In the model the tracks are represented as one individual tread segment. This is
+				useful in situations where you want to animate the tank. To simplify things a bit I
+				decided to instead combine all of the segments into a static mesh representing the
+				full track. I did that in Maya with the help of NURBS and MASH:
 			</div>
 			<div class="image-layout">
 				<a href="images/01-01.png" style="grid-area: 1 / 1 / 5 /  4;"><img src="images/01-01.png"></a>
@@ -47,10 +32,21 @@
 				<a href="images/01-03.png" style="grid-area: 3 / 4 / 5 / 13;"><img src="images/01-03.png"></a>
 			</div>
 			<div class="textbox">
-				In the model the tracks are modeled as an individual thread segment which can
-				then combined dynamically in the application. To simplify things a bit I decided to
-				instead combine the segments in Maya and use a static mesh for my project. To do
-				this I used Curves and MASH in Maya to produce the full track:
+				The entire model consists of 62703 triangles in total. Since this is too many
+				triangles to perform intersection tests against on each frame my first objective
+				was to build an acceleration structure.
+			</div>
+			<div class="textbox">
+				The acceleration structure is built at application startup and based on a bounding
+				volume hierarchy together with a surface area heuristic. It is built by repeatedly
+				splitting the root bounding volume based on three split strategies for each of the
+				three axes. Each split is then evaluated by the surface area heuristic and the best
+				split is chosen. All of the bounding volumes are then moved into a buffer that the
+				GPU can read from.
+			</div>
+			<div class="textbox">
+				This is an example of the resulting acceleration structure for the tank hull at
+				depth 0, 4 and 8:
 			</div>
 			<div class="image-layout">
 				<a href="images/01-04.png" style="grid-area: 1 / 1 / 5 /  5;"><img src="images/01-04.png"></a>
@@ -58,16 +54,12 @@
 				<a href="images/01-06.png" style="grid-area: 1 / 9 / 5 / 13;"><img src="images/01-06.png"></a>
 			</div>
 			<div class="textbox">
-				Now it's time for the actual rendering. The first step in the rendering of a frame
-				is to use rasterization as an optimized approach of computing the primary rays.
-				Instead of using a classical geometry buffer I instead only store index values,
-				barycentric coordinates and the pixel depth. While requiring a little bit more
-				computation to obtain properties such as the surface color or normal it consumes
-				less memory and allows all available surface properties to be computed. Below is an
-				example of the geometry buffer with the first texture containing the mesh index in
-				the red channel and the triangle index in the green channel, the second texture
-				containing the barycentric u coordinate in the red channel and the barycentric v
-				coordinate in the green channel, and the third texture containing the pixel depth:
+				With the acceleration structure in place the next objective was to implement the
+				ray tracing. In the classical approach you use primary rays going from the camera
+				into the scene in order to obtain information about the closest hit. To increase
+				the performance I instead use regular rasterization to create three textures that
+				hold essentially the same hit information as you would get from a classical
+				intersection test:
 			</div>
 			<div class="image-layout">
 				<a href="images/01-07.png" style="grid-area: 1 / 1 / 5 /  5;"><img src="images/01-07.png"></a>
@@ -75,20 +67,12 @@
 				<a href="images/01-09.png" style="grid-area: 1 / 9 / 5 / 13;"><img src="images/01-09.png"></a>
 			</div>
 			<div class="textbox">
-				In short, the index values are used to determine which mesh and triangle that a
-				pixel represents. The mesh is needed for things such as the world transform matrix
-				while the triangle is needed for things such as texture coordinates. The
-				barycentric coordinates are used for the interpolation of vertex values within a
-				specific pixel. The pixel depth is used to determine if a pixel represents a hit or
-				miss in terms of primary rays but it could also be used for other things such as
-				computing the intersection distance of the primary ray.
-			</div>
-			<div class="textbox">
-				With the information in the geometry buffer all pixels can be evaluated in terms of
-				any vertex property. Below is an example where I have used the geometry buffer to
-				obtain pixel values from the textures representing albedo color, ambient occlusion,
-				normals and material properties packed as glossiness in red channel and metallness
-				in green channel:
+				The first texture contains the mesh index in the red channel and the triangle index
+				in the green channel while the second texture contains the barycentric coordinate
+				and the third texture contains the depth. With these textures I can also
+				reconstruct all of the closest hit information such as the albedo color, ambient
+				occlusion, surface normal and various material properties such as glossiness and
+				metalness:
 			</div>
 			<div class="image-layout">
 				<a href="images/01-10.png" style="grid-area: 1 /  1 / 4 /  4;"><img src="images/01-10.png"></a>
@@ -97,15 +81,14 @@
 				<a href="images/01-13.png" style="grid-area: 1 / 10 / 4 / 13;"><img src="images/01-13.png"></a>
 			</div>
 			<div class="textbox">
-				After the rasterization it's time for a compute shader to execute the actual ray
-				tracing. It uses the geometry buffer to compute information such as the world hit
-				position of the primary rays in order to compute shadow rays and reflection rays.
-				These rays are then traced through the acceleration structure and then some
-				information about the hit is returned.
+				After the rasterization I use a compute shader to continue the ray tracing. I use
+				the information from the three textures to reconstruct the primary rays together
+				with their corresponding hit positions in order to compute secondary rays for
+				shadows and reflections. These secondary rays are then traced through the
+				acceleration structure which in turn returns information about the next hit.
 			</div>
 			<div class="textbox">
-				Below is an example of the direct light evaluation for the hit position of the
-				primary rays:
+				These are some output examples from the computation of shadow rays:
 			</div>
 			<div class="image-layout">
 				<a href="images/01-14.png" style="grid-area: 1 /  1 / 7 /  7;"><img src="images/01-14.png"></a>
@@ -114,8 +97,7 @@
 				<a href="images/01-17.png" style="grid-area: 1 / 10 / 7 / 13;"><img src="images/01-17.png"></a>
 			</div>
 			<div class="textbox">
-				Below is an example of the reflection evaluation with pure reflection and no other
-				colors for the hit position of the primary rays:
+				These are some output examples from the computation of reflection rays:
 			</div>
 			<div class="image-layout">
 				<a href="images/01-18.png" style="grid-area: 1 /  1 / 7 /  7;"><img src="images/01-18.png"></a>
@@ -124,11 +106,14 @@
 				<a href="images/01-21.png" style="grid-area: 1 / 10 / 7 / 13;"><img src="images/01-21.png"></a>
 			</div>
 			<div class="textbox">
-				I use this compute shader to evaluate the pixel color in terms of ambient light,
-				direct light and reflected light. The ray bouncing mechanism is implemented as a
-				loop in the shader to support a variable amount of bounces. If a ray does not hit
-				anything or if the accumulated reflection values fall below a threshold the loop
-				is cancelled. Below are a few examples of the output with 4 bounces:
+				I use the information from the next hit to both evaluate the incoming illumination
+				at each surface point and also to compute further bounces. The ray bouncing is done
+				iteratively in order to support a variable amount of bounces. This ends when either
+				no hit was found, after a maximum number of bounces or when the light contribution
+				falls below a specific threshold. After that I compute the final color of each pixel.
+			</div>
+			<div class="textbox">
+				These are some output examples of the final result with 4 bounces:
 			</div>
 			<div class="image-layout">
 				<a href="images/01-22.png" style="grid-area: 1 /  1 / 7 /  7;"><img src="images/01-22.png"></a>
@@ -137,11 +122,12 @@
 				<a href="images/01-25.png" style="grid-area: 1 / 10 / 7 / 13;"><img src="images/01-25.png"></a>
 			</div>
 			<div class="textbox">
-				For a 1920x1200 resolution with x2 SSAA and 2 full bounces this runs in roughly 30
-				FPS on an NVIDIA GeForce RTX 2070.
+				This runs at roughly 30 FPS on an NVIDIA GeForce RTX 2070 with the resolution
+				1920x1200 together with x2 SSAA and the maximum number of bounces set to 4.
 			</div>
 			<div class="textbox">
-				I also rendered a short video demo of the final result:
+				You can find my Github repository
+				<a href="https://github.com/simonblo/dh2323-hybrid-raytracer">here</a>.
 			</div>
 			<div class="video-layout">
 				<iframe src="https://www.youtube.com/embed/DFCqJlhYQGo?rel=0" allowfullscreen></iframe>
