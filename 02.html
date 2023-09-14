@@ -13,24 +13,23 @@
 				<a href="contact.html">Contact</a>
 			</div>
 			<div class="textbox">
-				In this project I wanted to learn more about real-time ocean simulation. On top of
-				that I also wanted to learn the fast fourier transform and additionally practice on
-				reading and implementing a scientific reasearch paper. This project is primarily
-				based on this paper:
+				In this project I wanted to learn more about real-time ocean simulation. One of my
+				goals was to practice on reading and implementing a scientific research paper. On
+				top of that I also wanted to understand the concept behind the very interesting
+				Fast Fourier Transform and implement it efficiently on the GPU.
 			</div>
 			<div class="textbox">
-				<a href="https://people.computing.clemson.edu/~jtessen/reports/papers_files/coursenotes2004.pdf">
-					Simulating Ocean Water by Jerry Tessendorf
-				</a>
+				This project is based on the paper <a href="https://people.computing.clemson.edu/
+				~jtessen/reports/papers_files/coursenotes2004.pdf">Simulating Ocean Water by Jerry
+				Tessendorf</a>.
 			</div>
 			<div class="textbox">
-				The first step is to generate the texture with the initial random frequencies that
-				will be used to create the actual amplitudes for a given time value. I do this on
-				the CPU at application initialization and then store it in a texture that the GPU
-				can read from when computing the time based amplitudes for each frame. This
-				generated texture consists of four channels, the red and green channels represents
-				the real and imaginary part for the regular frequencies while the blue and alpha
-				channels represents the real and imaginary part for the conjugated frequencies:
+				The initial random frequencies are generated at application startup by the CPU and
+				then moved into a texture that the GPU can read from. Each frequency is represented
+				by a complex number and computed based on gaussian random numbers combined with the
+				Phillips spectrum. The texture consists of four channels where the red and green
+				channel contains the real and imaginary part of the frequency while the blue and
+				alpha channel contains the real and imaginary part of the conjugated frequency:
 			</div>
 			<div class="image-layout">
 				<a href="images/02-01.png" style="grid-area: 1 /  1 / 4 /  4;"><img src="images/02-01.png"></a>
@@ -39,21 +38,22 @@
 				<a href="images/02-04.png" style="grid-area: 1 / 10 / 4 / 13;"><img src="images/02-04.png"></a>
 			</div>
 			<div class="textbox">
-				At the start of each frame I then use the four channels from the random frequencies
-				generated above to create time based frequencies. This is done in the frequency
-				domain before the fourier transform takes place so the textures look quite similar
-				to before. One difference is that the compute shader also reshuffles the four
-				quadrants of the frequency texture in accordance to how the fourier transform
-				expects frequencies to be ordered.
+				The next step was to implement a compute shader that generates time based
+				frequencies from the initial frequencies. This compute shader is executed at the
+				start of each new frame and generates frequencies for height, horizontal
+				displacement and surface slope. Since this is done in the frequency domain the
+				resulting textures look quite similar to the texture with the initial frequencies.
 			</div>
 			<div class="textbox">
-				Next up is to apply the fourier transform in order to transform the frequencies
-				from the frequency domain to the time domain. I implemented both a discrete fourier
-				transform and a fast fourier transform with compute shaders in order to compare the
-				difference in execution time and I present the results a bit further down. Here are
-				the resulting textures after the applied transform. The first texture represents
-				the hight, the second texture represents the horizontal displacement and the third
-				texture represents the slope:
+				After that I implemented the Fast Fourier Transform with compute shaders. It takes
+				a complex number in the frequency domain and then transforms it into a complex
+				number in the time domain. The implementation fully utilizes the SIMD instructions
+				on the GPU and therefore transforms two frequencies at the same time. Since there
+				are five frequencies in total the compute shaders only need to be executed three
+				times.
+			</div>
+			<div class="textbox">
+				These are the output textures from the Fast Fourier Transform:
 			</div>
 			<div class="image-layout">
 				<a href="images/02-05.png" style="grid-area: 1 / 1 / 9 /  9;"><img src="images/02-05.png"></a>
@@ -61,45 +61,52 @@
 				<a href="images/02-07.png" style="grid-area: 5 / 9 / 9 / 13;"><img src="images/02-07.png"></a>
 			</div>
 			<div class="textbox">
-				After the transformation step it's time to use the generated textures to render the
-				actual ocean surface. In the vertex shader I use both the height texture to offset
-				the vertex vertically and also the displacement texture to offset the vertex
-				horizontally:
-			</div>
-			<div class="image-layout">
-				<a href="images/02-08.png" style="grid-area: 1 / 1 / 5 / 13;"><img src="images/02-08.png"></a>
-				<a href="images/02-09.png" style="grid-area: 5 / 1 / 9 / 13;"><img src="images/02-09.png"></a>
+				The texture on the left contains the height while the texture in the upper right
+				corner contains the horizontal displacement and the texture in the lower right
+				corner contains the surface slope of the ocean.
 			</div>
 			<div class="textbox">
-				In the pixel shader I use both the height texture and the slope texture to compute
-				various light components. I use the slope to compute the surface normal which is
-				then used to determine the specular component as well as computing the reflection
-				direction to sample a color from the skybox. Additionally I use the height of the
-				surface to simulate the light scattering on wave peaks. Below I show the three
-				individual components of specular light, scattered light and reflected light:
+				After the transformation I use the generated textures to render the ocean surface.
+				The vertex shader uses the height texture to offset each vertex on the y axis and
+				the horizontal displacement texture to offset each vertex on the x and z axis. In
+				wireframe mode the ocean surface looks like this:
+			</div>
+			<div class="image-layout">
+				<a href="images/02-08.png" style="grid-area: 1 / 1 /  6 / 13;"><img src="images/02-08.png"></a>
+				<a href="images/02-09.png" style="grid-area: 6 / 1 / 11 / 13;"><img src="images/02-09.png"></a>
+			</div>
+			<div class="textbox">
+				In the pixel shader I use the generated textures to compute various light
+				components. The height texture is used to approximate the light scattering effect
+				on wave peaks. The surface slope texture is used to compute the surface normal
+				which in turn is used to compute specular light and the direction of reflected
+				light.
+			</div>
+			<div class="textbox">
+				These output examples show the specular, scattered and reflected components:
 			</div>
 			<div class="image-layout">
 				<a href="images/02-10.png" style="grid-area: 1 / 1 / 5 /  5;"><img src="images/02-10.png"></a>
 				<a href="images/02-11.png" style="grid-area: 1 / 5 / 5 /  9;"><img src="images/02-11.png"></a>
 				<a href="images/02-12.png" style="grid-area: 1 / 9 / 5 / 13;"><img src="images/02-12.png"></a>
 			</div>
+
 			<div class="textbox">
-				I add some ambient light together with the components of specular light and
-				scattered light and then combine it with the base color of the ocean together with
-				the reflective component in order to produce the final result:
+				These three light components are then combined together with some ambient light and
+				the base color of the ocean in order to determine the color value for each pixel
+				and to obtain the final result:
 			</div>
 			<div class="image-layout">
-				<a href="images/02-13.png" style="grid-area: 1 / 1 / 5 / 13;"><img src="images/02-13.png"></a>
-				<a href="images/02-14.png" style="grid-area: 5 / 1 / 9 / 13;"><img src="images/02-14.png"></a>
+				<a href="images/02-13.png" style="grid-area: 1 / 1 /  6 / 13;"><img src="images/02-13.png"></a>
+				<a href="images/02-14.png" style="grid-area: 6 / 1 / 11 / 13;"><img src="images/02-14.png"></a>
 			</div>
 			<div class="textbox">
-				For a 1920x1200 resolution with a fast fourier transform on a 2048x2048 grid and x4
-				SSAA this runs in roughly 65 FPS on an NVIDIA GeForce RTX 2070. As a comparison I
-				also implemented a discrete fourier transform which for the same settings runs in
-				roughly 5 FPS which is a massive difference. 
+				This runs at roughly 70 FPS on an NVIDIA GeForce RTX 2070 with the resolution
+				1920x1200 together with x4 SSAA and the ocean grid resolution set to 2048x2048.
 			</div>
 			<div class="textbox">
-				I also rendered a short video demo of the final result:
+				You can find my GitHub repository <a href="https://github.com/simonblo/dd1354-
+				ocean-simulation">here</a>.
 			</div>
 			<div class="video-layout">
 				<iframe src="https://www.youtube.com/embed/V3lDVTRCZGA?rel=0" allowfullscreen></iframe>
