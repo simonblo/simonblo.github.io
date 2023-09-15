@@ -13,59 +13,78 @@
 				<a href="contact.html">Contact</a>
 			</div>
 			<div class="textbox">
-				Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-				tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-				quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-				consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-				cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-				proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-			</div>
-			<div class="image-layout">
-				<a href="images/03-01.png" style="grid-area: 1 / 1 / 7 / 13;"><img src="images/03-01.png"></a>
+				In this project I wanted to learn more about terrain rendering. I wanted to build a
+				terrain surface by displacing the vertices on the surface grid based on a
+				heightmap. On top of that I also wanted to explore the concept of procedurally
+				shading the terrain surface rather than manually painting the terrain surface.
 			</div>
 			<div class="textbox">
-				Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
-				tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
-				quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
-				consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
-				cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-				proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+				The terrain material textures that I use in this project are not my own work.
+			</div>
+			<div class="textbox">
+				I used a software called World Machine to generate the heightmap. This software can
+				procedurally generate realistic terrains through a node graph interface and
+				supports natural effects such as erosion. The result can be exported as a heightmap
+				texture consisting of normalized 32-bit float values for increased precision:
+			</div>
+			<div class="image-layout">
+				<a href="images/03-01.png" style="grid-area: 1 / 1 / 9 / 13;"><img src="images/03-01.png"></a>
+			</div>
+			<div class="textbox">
+				At application startup the CPU builds a flat surface grid with evenly spaced
+				vertices and loads the heightmap into a texture. Then on each frame the vertex
+				shader uses the values in the heightmap to vertically displace each vertex on the
+				surface grid. In wireframe mode the terrain surface looks like this:
 			</div>
 			<div class="image-layout">
 				<a href="images/03-02.png" style="grid-area: 1 / 1 /  6 / 13;"><img src="images/03-02.png"></a>
 				<a href="images/03-03.png" style="grid-area: 6 / 1 / 11 / 13;"><img src="images/03-03.png"></a>
 			</div>
 			<div class="textbox">
-				The heightmap can now be used to compute parameters that can be used for the
-				procedural shading. The parameters that I compute is the slope of the surface point
-				and the wind exposure of the surface point. If the slope of the surface area is
-				high enough the snow should transition over to rock. If the normal is aligned a lot
-				to the wind direction the snow should also transition over to rock. This is
-				represented by to masks that controls where the snow texture and rock texture
-				should be used and how they should be mixed:
+				In the pixel shader the heightmap is used to compute surface normals. It is done by
+				sampling the heightmap in all four adjacent pixels and then computing the surface
+				normal with the central difference. These surface normals are then used to compute
+				two material masks for the procedural shading. One mask describes the surface slope
+				while the other mask describes the wind exposure. Both of the masks are computed by
+				using a smooth Hermite interpolation in combination with clamping values that
+				control the mask transitions.
+			</div>
+			<div class="textbox">
+				These output examples show the computed masks for surface slope and wind exposure:
 			</div>
 			<div class="image-layout">
 				<a href="images/03-04.png" style="grid-area: 1 / 1 / 7 /  7;"><img src="images/03-04.png"></a>
 				<a href="images/03-05.png" style="grid-area: 1 / 7 / 7 / 13;"><img src="images/03-05.png"></a>
 			</div>
 			<div class="textbox">
-				Then I combine those two texture masks into a single mask and I also compute the
-				combined illumination based on ambient light, diffuse light and specular light as
-				shown in the output images below:
+				The two separate masks are then combined into a single mask where a brighter value
+				indicates more rock material and a darker value indicates more snow material. In
+				addition to that the surface normal is also used to compute the illumination value
+				which consists of ambient, diffuse and specular components.
+			</div>
+			<div class="textbox">
+				These output examples show the combined mask and the computed illumination value:
 			</div>
 			<div class="image-layout">
 				<a href="images/03-06.png" style="grid-area: 1 / 1 / 7 /  7;"><img src="images/03-06.png"></a>
 				<a href="images/03-07.png" style="grid-area: 1 / 7 / 7 / 13;"><img src="images/03-07.png"></a>
 			</div>
 			<div class="textbox">
-				I then use the computed values to determine the final color of each pixel:
+				The rock and snow materials are then blended with a linear interpolation based on
+				the combined mask and multiplied by the illumination value in order to obtain the
+				final result:
 			</div>
 			<div class="image-layout">
 				<a href="images/03-08.png" style="grid-area: 1 / 1 /  6 / 13;"><img src="images/03-08.png"></a>
 				<a href="images/03-09.png" style="grid-area: 6 / 1 / 11 / 13;"><img src="images/03-09.png"></a>
 			</div>
 			<div class="textbox">
-				I also rendered a short video demo of the final result:
+				This runs at roughly 280 FPS on an NVIDIA GeForce RTX 2070 with the resolution
+				1920x1200 together with x4 SSAA and the terrain grid resolution set to 1025x1025.
+			</div>
+			<div class="textbox">
+				You can find my GitHub repository <a href="https://github.com/simonblo/dd2258-
+				terrain-shading">here</a>.
 			</div>
 			<div class="video-layout">
 				<iframe src="https://www.youtube.com/embed/zLZyJyYI-mY?rel=0" allowfullscreen></iframe>
