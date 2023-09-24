@@ -16,23 +16,23 @@ body
 .navigation
 {
 	display: inline-block;
-	height: 45px;
 	margin: 10px 0px 0px;
 	overflow: hidden;
 }
 
 .navigation a
 {
-	color: #DDDDDD;
+	color: #CCCCCC;
 	float: left;
 	margin: 10px 15px;
 	padding: 5px 5px;
-	font-size: 16px;
+	font-size: 18px;
 	font-family: sans-serif;
 	text-align: center;
 	text-decoration: none;
 	text-transform: uppercase;
 	letter-spacing: 0.45px;
+	line-height: 16px;
 }
 
 .navigation a:hover
