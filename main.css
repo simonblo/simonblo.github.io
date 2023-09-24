@@ -4,6 +4,18 @@ body
 	overflow-y: scroll;
 }
 
+a
+{
+	color: #00A2FF;
+	text-decoration: none;
+}
+
+a:hover
+{
+	color: #00A2FF;
+	text-decoration: underline;
+}
+
 .main-frame
 {
 	display: block;
