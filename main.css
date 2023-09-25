@@ -63,10 +63,10 @@ a:hover
 	width: 800px;
 	margin-top: 10px;
 	margin-bottom: 10px;
-	font-family: sans-serif;
+	font-family: "Inter", sans-serif;
 	font-size: 16px;
 	text-align: left;
-	letter-spacing: 0.25px;
+	letter-spacing: -0.25px;
 	line-height: 25px;
 }
 
@@ -157,7 +157,7 @@ a:hover
 {
 	margin-top: 20px;
 	margin-bottom: 20px;
-	font-family: sans-serif;
+	font-family: "Inter", sans-serif;
 	font-size: 32px;
 	letter-spacing: 0.25px;
 }
@@ -166,7 +166,7 @@ a:hover
 {
 	margin-top: 20px;
 	margin-bottom: 20px;
-	font-family: sans-serif;
+	font-family: "Inter", sans-serif;
 	font-size: 18px;
 	letter-spacing: 0.25px;
 }
