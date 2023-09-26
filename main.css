@@ -19,16 +19,12 @@ a:hover
 .main-frame
 {
 	display: block;
-	width: 800px;
 	height: auto;
-	margin-left: auto;
-	margin-right: auto;
 }
 
 .navigation
 {
 	display: inline-block;
-	margin: 10px 0px 0px;
 	overflow: hidden;
 }
 
@@ -36,15 +32,10 @@ a:hover
 {
 	color: #CCCCCC;
 	float: left;
-	margin: 10px 15px;
-	padding: 5px 5px;
 	font-family: "Inter", sans-serif;
-	font-size: 18px;
 	text-align: center;
 	text-decoration: none;
 	text-transform: uppercase;
-	letter-spacing: 0.45px;
-	line-height: 16px;
 }
 
 .navigation a:hover
@@ -60,26 +51,13 @@ a:hover
 .textbox
 {
 	display: inline-block;
-	width: 800px;
-	margin-top: 10px;
-	margin-bottom: 10px;
 	font-family: "Inter", sans-serif;
-	font-size: 16px;
 	text-align: left;
-	letter-spacing: -0.25px;
-	line-height: 25px;
 }
 
 .image-layout
 {
 	display: inline-grid;
-	width: 800px;
-	margin-top: 10px;
-	margin-bottom: 10px;
-	grid-auto-columns: 63px;
-	grid-auto-rows: 63px;
-	grid-column-gap: 4px;
-	grid-row-gap: 4px;
 	overflow: hidden;
 }
 
@@ -88,17 +66,12 @@ a:hover
 	position: relative;
 	width: 100%;
 	height: 100%;
-	border-radius: 8px;
 	object-fit: cover;
 }
 
 .video-layout
 {
 	display: inline-grid;
-	width: 800px;
-	height: 500px;
-	margin-top: 10px;
-	margin-bottom: 10px;
 	overflow: hidden;
 }
 
@@ -107,7 +80,6 @@ a:hover
 	width: 100%;
 	height: 100%;
 	border: none;
-	border-radius: 8px;
 	object-fit: cover;
 }
 
@@ -115,15 +87,9 @@ a:hover
 {
 	position: absolute;
 	display: inline-grid;
-	right: 5px;
-	bottom: 5px;
-	padding: 5px 10px;
 	font-family: "Inter", sans-serif;
-	font-size: 12px;
-	letter-spacing: 0.25px;
 	color: #FFFFFF;
 	background-color: #000000;
-	border-radius: 8px;
 }
 
 .image-layout a:hover .index-button
@@ -136,12 +102,6 @@ a:hover
 .contact-photo
 {
 	display: block;
-	width: 300px;
-	height: 300px;
-	margin-left:auto;
-	margin-right:auto;
-	margin-top: 20px;
-	margin-bottom: 30px;
 	overflow: hidden;
 }
 
@@ -173,11 +133,202 @@ a:hover
 
 .contact-linkedin
 {
-	width: 65px;
-	height: 65px;
-	margin-left:auto;
-	margin-right:auto;
-	margin-top: 30px;
-	margin-bottom: 10px;
 	overflow: hidden;
+}
+
+@media only screen and (min-device-width: 800px)
+{
+	.main-frame
+	{
+		width: 800px;
+		margin: 0px auto;
+	}
+
+	.navigation
+	{
+		margin: 10px 0px 0px;
+	}
+
+	.navigation a
+	{
+		margin: 10px 15px;
+		padding: 5px;
+		font-size: 18px;
+		letter-spacing: 0.45px;
+		line-height: 16px;
+	}
+
+	.textbox
+	{
+		width: 800px;
+		margin: 10px 0px;
+		font-size: 16px;
+		letter-spacing: -0.25px;
+		line-height: 25px;
+	}
+
+	.image-layout
+	{
+		width: 800px;
+		margin: 10px 0px;
+		grid-auto-columns: 63px;
+		grid-auto-rows: 63px;
+		grid-gap: 4px;
+	}
+
+	.image-layout a, .image-layout img
+	{
+		border-radius: 8px;
+	}
+
+	.video-layout
+	{
+		width: 800px;
+		height: 500px;
+		margin: 10px 0px;
+	}
+
+	.video-layout iframe
+	{
+		border-radius: 8px;
+	}
+
+	.index-button
+	{
+		right: 5px;
+		bottom: 5px;
+		padding: 5px 10px;
+		font-size: 12px;
+		letter-spacing: 0.25px;
+		border-radius: 8px;
+	}
+
+	.contact-photo
+	{
+		width: 300px;
+		height: 300px;
+		margin: 20px auto 30px;
+	}
+
+	.contact-name
+	{
+		margin: 20px 0px;
+		font-size: 32px;
+		letter-spacing: 0.25px;
+	}
+
+	.contact-mail
+	{
+		margin: 20px 0px;
+		font-size: 18px;
+		letter-spacing: 0.25px;
+	}
+
+	.contact-linkedin
+	{
+		width: 65px;
+		height: 65px;
+		margin: 30px auto 10px;
+	}
+}
+
+@media only screen and (max-device-width: 800px)
+{
+	body
+	{
+		margin: 0px;
+	}
+
+	.main-frame
+	{
+		width: 100vw;
+		margin: 0vw 0vw;
+	}
+
+	.navigation
+	{
+		margin: 2vw 0vw 0vw;
+	}
+
+	.navigation a
+	{
+		margin: 1vw 2vw;
+		padding: 1vw;
+		font-size: 3vw;
+		letter-spacing: 0.05vw;
+		line-height: 3vw;
+	}
+
+	.textbox
+	{
+		width: 96.8vw;
+		margin: 1vw 0vw;
+		font-size: 1.4vw;
+		letter-spacing: -0.025vw;
+		line-height: 2.55vw;
+	}
+
+	.image-layout
+	{
+		width: 99.2vw;
+		margin: 1vw 0vw;
+		grid-auto-columns: 7.9vw;
+		grid-auto-rows: 7.9vw;
+		grid-gap: 0.4vw;
+	}
+
+	.image-layout a, .image-layout img
+	{
+		border-radius: 1vw;
+	}
+
+	.video-layout
+	{
+		width: 99.2vw;
+		height: 62vw;
+		margin: 1vw 0vw;
+	}
+
+	.video-layout iframe
+	{
+		border-radius: 1vw;
+	}
+
+	.index-button
+	{
+		right: 0.5vw;
+		bottom: 0.5vw;
+		padding: 1vw 1.5vw;
+		font-size: 2.25vw;
+		letter-spacing: 0.02vw;
+		border-radius: 1vw;
+	}
+
+	.contact-photo
+	{
+		width: 50vw;
+		height: 50vw;
+		margin: 2vw auto 3vw;
+	}
+
+	.contact-name
+	{
+		margin: 2vw 0vw;
+		font-size: 6.8vw;
+		letter-spacing: 0.025vw;
+	}
+
+	.contact-mail
+	{
+		margin: 2vw 0vw;
+		font-size: 3.8vw;
+		letter-spacing: 0.025vw;
+	}
+
+	.contact-linkedin
+	{
+		width: 6.5vw;
+		height: 6.5vw;
+		margin: 3vw auto 1vw;
+	}
 }
