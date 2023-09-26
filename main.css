@@ -115,24 +115,18 @@ a:hover
 
 .contact-name
 {
-	margin-top: 20px;
-	margin-bottom: 20px;
 	font-family: "Inter", sans-serif;
-	font-size: 32px;
-	letter-spacing: 0.25px;
 }
 
 .contact-mail
 {
-	margin-top: 20px;
-	margin-bottom: 20px;
 	font-family: "Inter", sans-serif;
-	font-size: 18px;
-	letter-spacing: 0.25px;
 }
 
 .contact-linkedin
 {
+	width: 65px;
+	height: 65px;
 	overflow: hidden;
 }
 
@@ -226,8 +220,6 @@ a:hover
 
 	.contact-linkedin
 	{
-		width: 65px;
-		height: 65px;
 		margin: 30px auto 10px;
 	}
 }
@@ -327,8 +319,7 @@ a:hover
 
 	.contact-linkedin
 	{
-		width: 6.5vw;
-		height: 6.5vw;
-		margin: 3vw auto 1vw;
+		margin: 5vw auto 1vw;
+		transform: scale(1.4);
 	}
 }
